@@ -35,7 +35,7 @@ export class User {
     if (!User.hasAddressOrCoordinates(attributes)) {
       throw new UnprocessableEntity('User');
     }
-    this.id = uuidv7();
+    this.id = attributes.id ? attributes.id : uuidv7();
     this.name = attributes.name;
     this.email = attributes.email;
     this.address = attributes.address ? new Address(attributes.address) : null;
