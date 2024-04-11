@@ -32,16 +32,16 @@ describe('MemoryUserRepository', () => {
 
   test('update', async () => {
     await userRepository.save(user);
-    const userToUpdate = await userRepository.getUserByEmail(user.email);
+    const userToUpdate = await userRepository.getUserById(user.id);
     userToUpdate!.name = 'Juliano';
-    await userRepository.update(userToUpdate!.email, userToUpdate!);
-    const retrievedUser = await userRepository.getUserByEmail('john@example.com');
+    await userRepository.updateById(userToUpdate!.id, userToUpdate!);
+    const retrievedUser = await userRepository.getUserById(user.id);
     expect(retrievedUser!.name).toEqual('Juliano');
   });
 
   test('delete', async () => {
     await userRepository.save(user);
-    await userRepository.delete(user.id!);
+    await userRepository.deleteById(user.id!);
     const retrievedUser = await userRepository.getUserByEmail('john@example.com');
     expect(retrievedUser).toBeNull();
   });

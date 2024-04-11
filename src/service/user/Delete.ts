@@ -4,6 +4,6 @@ export class DeleteUser {
   constructor(private usersRepo: UsersRepositoryI) {}
 
   async exec(userId: string) {
-    await this.usersRepo.delete(userId);
+    await this.usersRepo.deleteById(userId);
   }
 }

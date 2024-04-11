@@ -34,14 +34,14 @@ describe('MemoryRegionRepository', () => {
       ...region,
       name: 'Updated Test Region',
     };
-    await regionRepository.update(region.id, updatedRegionData);
+    await regionRepository.updateById(region.id, updatedRegionData);
     const retrievedRegion = await regionRepository.getRegionByName('Updated Test Region');
     expect(retrievedRegion).toEqual(updatedRegionData);
   });
 
   test('delete', async () => {
     await regionRepository.save(region);
-    await regionRepository.delete(region.id);
+    await regionRepository.deleteById(region.id);
     const retrievedRegion = await regionRepository.getRegionByName('Test Region');
     expect(retrievedRegion).toBeNull();
   });

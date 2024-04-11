@@ -15,6 +15,6 @@ export class UpdaterRegion {
       coordinates: coordinates ? coordinates : region.coordinates,
       updatedAt: new Date(),
     });
-    return this.regionsRepo.update(regionId, newRegion);
+    return this.regionsRepo.updateById(regionId, newRegion);
   }
 }

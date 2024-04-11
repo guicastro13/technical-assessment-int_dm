@@ -16,6 +16,6 @@ export class UpdaterUser {
       address: address ? address : user.address,
       updatedAt: new Date(),
     });
-    return this.usersRepo.update(userId, newUser);
+    return this.usersRepo.updateById(userId, newUser);
   }
 }

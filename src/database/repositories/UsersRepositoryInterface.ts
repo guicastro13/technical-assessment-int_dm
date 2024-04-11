@@ -5,6 +5,6 @@ export interface UsersRepositoryI {
   getUserByEmail(email: string): Promise<User | null>;
   getUserById(userId: string): Promise<User | null>;
   getAll(): Promise<Array<User> | null>;
-  update(email: string, updatedUser: User): Promise<User | null>;
-  delete(email: string): Promise<void>;
+  updateById(userId: string, updatedUser: User): Promise<User | null>;
+  deleteById(userId: string): Promise<void>;
 }

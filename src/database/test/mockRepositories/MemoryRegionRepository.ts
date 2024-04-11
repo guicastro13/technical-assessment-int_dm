@@ -30,7 +30,7 @@ export class MemoryRegionRepository implements RegionsRepositoryI {
     return null;
   }
 
-  async update(id: string, updatedRegion: Region): Promise<Region | null> {
+  async updateById(id: string, updatedRegion: Region): Promise<Region | null> {
     if (this.regions.has(id)) {
       this.regions.set(id, updatedRegion);
       return updatedRegion;
@@ -38,7 +38,7 @@ export class MemoryRegionRepository implements RegionsRepositoryI {
     return null;
   }
 
-  async delete(regionId: string): Promise<void> {
+  async deleteById(regionId: string): Promise<void> {
     this.regions.delete(regionId);
   }
 }

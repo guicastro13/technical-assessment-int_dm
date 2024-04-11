@@ -9,36 +9,39 @@ export class MemoryUserRepository implements UsersRepositoryI {
   }
 
   async save(user: User): Promise<User> {
-    this.users.set(user.id, user);
-    return user;
+    const instance = new User(user);
+    this.users.set(user.id, instance);
+    return instance;
   }
 
   async getAll(): Promise<Array<User> | null> {
-    return Array.from(this.users.values());
+    return Array.from(this.users.values()) || null;
   }
 
   async getUserById(userId: string): Promise<User | null> {
-    return this.users.get(userId) || null;
+    const user =  this.users.get(userId);
+    return user ? new User(user) : null
   }
 
   async getUserByEmail(email: string): Promise<User | null> {
     for (const [, user] of this.users) {
       if (user.email === email) {
-        return user;
+        return new User(user)
       }
     }
     return null;
   }
 
-  async update(email: string, updatedUser: User): Promise<User | null> {
-    if (this.users.has(email)) {
-      this.users.set(email, updatedUser);
-      return updatedUser;
+  async updateById(userId: string, updaterUser: User): Promise<User | null> {
+    if (this.users.get(userId)) {
+      const updatedUser = new User(updaterUser)
+      this.users.set(userId, updatedUser);
+      return updatedUser
     }
     return null;
   }
 
-  async delete(userId: string): Promise<void> {
+  async deleteById(userId: string): Promise<void> {
     this.users.delete(userId);
   }
 }

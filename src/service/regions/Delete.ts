@@ -4,6 +4,6 @@ export class DeleteRegion {
   constructor(private regionsRepo: RegionsRepositoryI) {}
 
   async exec(userId: string) {
-    return this.regionsRepo.delete(userId);
+    return this.regionsRepo.deleteById(userId);
   }
 }
