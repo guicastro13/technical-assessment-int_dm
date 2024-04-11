@@ -29,8 +29,7 @@ export class ValidatorSchema {
       email: z.string().email().optional(),
       address: ValidatorSchema.addressSchema.optional(),
       coordinates: ValidatorSchema.coordinatesSchema.optional(),
-    })
-    .refine((user) => user.address || user.coordinates, 'Endereço ou Coordenadas são obrigatórios');
+    });
 
   static UUID = z.string().uuid();
 
