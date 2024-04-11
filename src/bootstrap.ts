@@ -11,7 +11,7 @@ import { GetAllRegions } from './service/regions/GetAllRegions';
 import { GetRegionById } from './service/regions/GetRegionById';
 import { DeleteRegion } from './service/regions/Delete';
 import { UpdaterRegion } from './service/regions/Update';
-import { RegionControler } from './api/controllers/RegionControler';
+import { RegionControler } from './api/controllers/RegionController';
 
 //REPOSITORIOS
 export const usersRepository = new MemoryUserRepository();
