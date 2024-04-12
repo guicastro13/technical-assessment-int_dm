@@ -47,31 +47,31 @@ export class Router {
     });
 
     this.server.on({
-      path: '/regions/create',
+      path: '/region/create',
       method: 'post',
       handler: regionsController.create,
     });
 
     this.server.on({
-      path: '/regions/get-all',
+      path: '/region/get-all',
       method: 'get',
       handler: regionsController.getAll,
     });
 
     this.server.on({
-      path: '/regions/get-one/:regions_id',
+      path: '/region/get-one/:region_id',
       method: 'get',
       handler: regionsController.getById,
     });
 
     this.server.on({
-      path: '/regions/update/:regions_id',
+      path: '/region/update/:region_id',
       method: 'put',
       handler: regionsController.update,
     });
 
     this.server.on({
-      path: '/regions/delete/:regions_id',
+      path: '/region/delete/:region_id',
       method: 'delete',
       handler: regionsController.delete,
     });
