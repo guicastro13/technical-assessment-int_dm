@@ -11,7 +11,6 @@ export class GoogleMapsGeoLocationService implements GeoLocationService {
   constructor(private axios: HttpClient) {}
   
   async getAddressFromCoordinates(coordinates: Coordinates): Promise<Address> {
-    if (!coordinates) throw new HttpError("Should have to contain coordinates to transform in address")
     const { latitude, longitude } = coordinates
     const result = await this.axios.get<ResponseData>(`${this.baseUrlCordenates}?at=${latitude}%2C${longitude}&lang=en-US&apiKey=${this._apiKey}`)
     return {
@@ -24,7 +23,6 @@ export class GoogleMapsGeoLocationService implements GeoLocationService {
   }
 
   async getCoordinatesFromAddress(address: Address): Promise<Coordinates> {
-    if (!address) throw new HttpError("Should have to contain address to transform in coordinates")
     const { city, country, state, street, zipCode} = address
     const result = await this.axios.get<ResponseData>(`${this.baseUrlAddress}?q=+${city}+${country}+${state}+${street}+${zipCode}&apiKey=${this._apiKey}`)
     return {
