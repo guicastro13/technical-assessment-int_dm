@@ -19,10 +19,10 @@ describe("Geo Location Service", () => {
         const adapter = new AxiosAdapter()
         geoLocation = new GoogleMapsGeoLocationService(adapter)
     })
-    // it("Deve extrair a coordenada através do endereço", async ()=>{
-    //     const coordinate = await geoLocation.getCoordinatesFromAddress(address);
-    //     expect(coordinate).toBeTruthy()
-    // })
+    it("Deve extrair a coordenada através do endereço", async ()=>{
+        const coordinate = await geoLocation.getCoordinatesFromAddress(address);
+        expect(coordinate).toBeTruthy()
+    })
 
     it("Deve receber um endereço através de uma coordenada", async () => {
         const addres = await geoLocation.getAddressFromCoordinates(coordinates);
