@@ -12,23 +12,28 @@ import { GetRegionById } from './service/regions/GetRegionById';
 import { DeleteRegion } from './service/regions/Delete';
 import { UpdaterRegion } from './service/regions/Update';
 import { RegionController } from './api/controllers/RegionController';
+import { UserRepositoryMongo } from './database/mongodb/repositoriesMongo/UserRepositoryMongo';
+import { RegionRepositoryMongo } from './database/mongodb/repositoriesMongo/RegionRepositoryMongo';
 
-//REPOSITORIOS
-export const usersRepository = new MemoryUserRepository();
-export const regionsRepository = new MemoryRegionRepository();
+//REPOSITORIES MEMORY
+export const usersRepositoryMemory = new MemoryUserRepository();
+export const regionsRepositoryMemory = new MemoryRegionRepository();
+//REPOSITORIES MONGO
+export const usersRepositoryMongo = new UserRepositoryMongo();
+export const regionRepositoryMongo = new RegionRepositoryMongo();
 
 //SERVIÇOS
-export const createUser = new CreateUser(usersRepository);
-export const getAllUsers = new GetAllUsers(usersRepository);
-export const getUserById = new GetUserById(usersRepository);
-export const deleteUser = new DeleteUser(usersRepository);
-export const updaterUser = new UpdaterUser(usersRepository);
+export const createUser = new CreateUser(usersRepositoryMongo);
+export const getAllUsers = new GetAllUsers(usersRepositoryMongo);
+export const getUserById = new GetUserById(usersRepositoryMongo);
+export const deleteUser = new DeleteUser(usersRepositoryMongo);
+export const updaterUser = new UpdaterUser(usersRepositoryMongo);
 
-export const createRegion = new CreateRegion(regionsRepository);
-export const getAllRegions = new GetAllRegions(regionsRepository);
-export const getRegionBy = new GetRegionById(regionsRepository);
-export const deleteRegion = new DeleteRegion(regionsRepository);
-export const updatedRegion = new UpdaterRegion(regionsRepository);
+export const createRegion = new CreateRegion(regionRepositoryMongo);
+export const getAllRegions = new GetAllRegions(regionRepositoryMongo);
+export const getRegionBy = new GetRegionById(regionRepositoryMongo);
+export const deleteRegion = new DeleteRegion(regionRepositoryMongo);
+export const updatedRegion = new UpdaterRegion(regionRepositoryMongo);
 
 //CONTROLLER
 export const userController = new UserController(createUser, getAllUsers, getUserById, deleteUser, updaterUser);
