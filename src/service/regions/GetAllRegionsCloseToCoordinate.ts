@@ -13,7 +13,7 @@ export class GetAllRegionsCloseToCoordinate {
     const regions = await this.regionsRepo.getAll();
     if (!regions) return [];
 
-    const closeRegions: Array<{ region: Region; distance: number } | []> = [];
+    const closeRegions: Array<{ region: Region; distance: number }> = [];
 
     regions.forEach((region) => {
       const distance = this.geoLocationDistance.getDistance(coordinates, region.coordinates);
