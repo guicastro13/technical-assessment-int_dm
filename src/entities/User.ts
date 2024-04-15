@@ -1,7 +1,7 @@
 // users/User.ts
-import { uuidv7 } from 'uuidv7';
 import { Address, Coordinates } from './Address';
 import { UnprocessableEntity } from '../errors/UnprocessableEntity';
+import { Uuid } from '../helpers/uuid';
 
 export interface UserAttributes {
   id?: string;
@@ -35,7 +35,7 @@ export class User {
     if (!User.hasAddressOrCoordinates(attributes)) {
       throw new UnprocessableEntity('User');
     }
-    this.id = attributes.id ? attributes.id : uuidv7();
+    this.id = attributes.id ? attributes.id : Uuid.generate();
     this.name = attributes.name;
     this.email = attributes.email;
     this.address = attributes.address ? new Address(attributes.address) : null;

@@ -1,5 +1,5 @@
-import { uuidv7 } from 'uuidv7';
 import { Coordinates } from './Address';
+import { Uuid } from '../helpers/uuid';
 
 export interface RegionAttributes {
   id?: string;
@@ -28,7 +28,7 @@ export class Region {
   updatedAt?: Date | null;
 
   constructor(attributes: RegionAttributes) {
-    this.id = attributes.id ?? uuidv7();
+    this.id = attributes.id ?? Uuid.generate();
     this.name = attributes.name;
     this.coordinates = new Coordinates(attributes.coordinates);
     this.userId = attributes.userId;
