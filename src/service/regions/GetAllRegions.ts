@@ -1,4 +1,4 @@
-import { RegionsRepositoryI } from '../../database/repositories/RegionsRepositoryInterface';
+import { RegionsRepositoryI } from '../../database/repositoriesInterfaces/RegionsRepositoryInterface';
 
 export class GetAllRegions {
   constructor(private regionsRepo: RegionsRepositoryI) {}

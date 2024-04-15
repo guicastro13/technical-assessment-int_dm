@@ -1,4 +1,4 @@
-import { RegionsRepositoryI } from '../../database/repositories/RegionsRepositoryInterface';
+import { RegionsRepositoryI } from '../../database/repositoriesInterfaces/RegionsRepositoryInterface';
 import { Coordinates } from '../../entities/Address';
 import { Region } from '../../entities/Region';
 import { GeoLocationDistance } from '../GeoLocationDistance';

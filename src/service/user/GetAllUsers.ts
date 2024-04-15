@@ -1,4 +1,4 @@
-import { UsersRepositoryI } from '../../database/repositories/UsersRepositoryInterface';
+import { UsersRepositoryI } from '../../database/repositoriesInterfaces/UsersRepositoryInterface';
 
 export class GetAllUsers {
   constructor(private usersRepo: UsersRepositoryI) {}

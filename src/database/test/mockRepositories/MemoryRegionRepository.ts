@@ -1,5 +1,5 @@
 import { Region } from '../../../entities/Region';
-import { RegionsRepositoryI } from '../../repositories/RegionsRepositoryInterface';
+import { RegionsRepositoryI } from '../../repositoriesInterfaces/RegionsRepositoryInterface';
 
 export class MemoryRegionRepository implements RegionsRepositoryI {
   private regions: Map<string, Region>;

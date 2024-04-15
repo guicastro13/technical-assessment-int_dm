@@ -1,4 +1,4 @@
-import { UsersRepositoryI } from '../../database/repositories/UsersRepositoryInterface';
+import { UsersRepositoryI } from '../../database/repositoriesInterfaces/UsersRepositoryInterface';
 import { User, UserAttributes, UserAttributesUpdate } from '../../entities/User';
 
 export class UpdaterUser {

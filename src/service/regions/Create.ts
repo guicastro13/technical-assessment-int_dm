@@ -1,4 +1,4 @@
-import { RegionsRepositoryI } from '../../database/repositories/RegionsRepositoryInterface';
+import { RegionsRepositoryI } from '../../database/repositoriesInterfaces/RegionsRepositoryInterface';
 import { Region, RegionAttributes } from '../../entities/Region';
 
 export class CreateRegion {

@@ -1,5 +1,5 @@
 import { User } from '../../../entities/User';
-import { UsersRepositoryI } from '../../repositories/UsersRepositoryInterface';
+import { UsersRepositoryI } from '../../repositoriesInterfaces/UsersRepositoryInterface';
 
 export class MemoryUserRepository implements UsersRepositoryI {
   private users: Map<string, User>;
