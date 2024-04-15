@@ -22,7 +22,7 @@ describe('Get All Regions Close to Coordinate', () => {
 
   const farCoordinate: Coordinates = {
     latitude: -22.400830790167916,
-    longitude: -48.000000000000000,
+    longitude: -48.0,
   };
 
   const nearCoordinate: Coordinates = {
@@ -68,33 +68,31 @@ describe('Get All Regions Close to Coordinate', () => {
     const user_1 = await createUser.exec(userValid);
     user_2 = await createUser.exec(otherUser);
 
-
     await createRegion.exec({
-        name: 'Region 1',
-        coordinates: { ...coordinate2 },
-        userId: user_1.id,
+      name: 'Region 1',
+      coordinates: { ...coordinate2 },
+      userId: user_1.id,
     });
 
     await createRegion.exec({
-        name: 'Region 2',
-        coordinates: { ...coordinate1 },
-        userId: user_1.id,
+      name: 'Region 2',
+      coordinates: { ...coordinate1 },
+      userId: user_1.id,
     });
 
     await createRegion.exec({
-        name: 'Region 3',
-        coordinates: { ...coordinate2 },
-        userId: user_2.id,
+      name: 'Region 3',
+      coordinates: { ...coordinate2 },
+      userId: user_2.id,
     });
-    
 
     await createRegion.exec({
-        name: 'Region 4',
-        coordinates: {
-            latitude: -23.000000,
-            longitude: -48.000000,
-        },
-        userId: user_2.id,
+      name: 'Region 4',
+      coordinates: {
+        latitude: -23.0,
+        longitude: -48.0,
+      },
+      userId: user_2.id,
     });
     const geoLocationDistance = new GeoLocationDistance();
     getRegionsCloseToCoordinateDiifUser = new GetRegionsCloseToCoordinateDiffUserId(regionsRepo, geoLocationDistance);
@@ -102,14 +100,17 @@ describe('Get All Regions Close to Coordinate', () => {
 
   it('should return an empty list when there are no regions close to the coordinate', async () => {
     const result = await getRegionsCloseToCoordinateDiifUser.exec(farCoordinate, user_2.id, 20);
-    expect(result?.length).toBe(0)
+    expect(result?.length).toBe(0);
   });
 
   it('should return a list with regions close to the coordinate from other users', async () => {
-    const result: Array<{region: Region, distance: number}> | [] = await getRegionsCloseToCoordinateDiifUser.exec(nearCoordinate, user_2.id);
+    const result: Array<{ region: Region; distance: number }> | [] = await getRegionsCloseToCoordinateDiifUser.exec(
+      nearCoordinate,
+      user_2.id,
+    );
     expect(result?.length).toBeGreaterThan(0);
-    result.forEach(({ region })=>{
-        expect(region.userId).not.toEqual(user_2.id)
-    })
+    result.forEach(({ region }) => {
+      expect(region.userId).not.toEqual(user_2.id);
+    });
   });
 });

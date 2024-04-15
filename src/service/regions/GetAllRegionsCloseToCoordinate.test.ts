@@ -52,9 +52,9 @@ describe('Get All Regions Close to Coordinate', () => {
     const result = await getAllRegionsClose.exec(coordinate1);
     expect(result.length).toBeGreaterThan(0);
     result.forEach(({ region, distance }) => {
-        expect(region).toBeDefined();
-        expect(distance).toBeDefined();
-        expect(distance).toBeGreaterThanOrEqual(0);
+      expect(region).toBeDefined();
+      expect(distance).toBeDefined();
+      expect(distance).toBeGreaterThanOrEqual(0);
     });
-});
+  });
 });

@@ -1,5 +1,4 @@
 import { Address, Coordinates, GeoLocationService } from '../entities/Address';
-import { HttpError } from '../errors/HttpError';
 import { HttpClient } from '../httpClient/Axios';
 import { ResponseData } from '../httpClient/geoLocationTypeRequest';
 
