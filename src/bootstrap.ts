@@ -13,7 +13,6 @@ import { DeleteRegion } from './service/regions/Delete';
 import { UpdaterRegion } from './service/regions/Update';
 import { RegionController } from './api/controllers/RegionController';
 
-
 //REPOSITORIOS
 export const usersRepository = new MemoryUserRepository();
 export const regionsRepository = new MemoryRegionRepository();

@@ -3,7 +3,7 @@ import { User, UserAttributes, UserAttributesUpdate } from '../../entities/User'
 
 export class UpdaterUser {
   constructor(private usersRepo: UsersRepositoryI) {}
-  
+
   async exec(userId: string, updatederUser: UserAttributesUpdate): Promise<User | null> {
     const user = await this.usersRepo.getUserById(userId);
     if (user === null) return null;

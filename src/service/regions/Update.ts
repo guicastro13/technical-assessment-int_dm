@@ -3,7 +3,7 @@ import { Region, RegionAttributesUpdate } from '../../entities/Region';
 
 export class UpdaterRegion {
   constructor(private regionsRepo: RegionsRepositoryI) {}
-  
+
   async exec(regionId: string, updatederRegions: RegionAttributesUpdate): Promise<Region | null> {
     const region = await this.regionsRepo.getRegionById(regionId);
     if (region === null) return null;

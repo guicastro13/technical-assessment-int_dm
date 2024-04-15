@@ -19,14 +19,14 @@ export class MemoryUserRepository implements UsersRepositoryI {
   }
 
   async getUserById(userId: string): Promise<User | null> {
-    const user =  this.users.get(userId);
-    return user ? new User(user) : null
+    const user = this.users.get(userId);
+    return user ? new User(user) : null;
   }
 
   async getUserByEmail(email: string): Promise<User | null> {
     for (const [, user] of this.users) {
       if (user.email === email) {
-        return new User(user)
+        return new User(user);
       }
     }
     return null;
@@ -34,9 +34,9 @@ export class MemoryUserRepository implements UsersRepositoryI {
 
   async updateById(userId: string, updaterUser: User): Promise<User | null> {
     if (this.users.get(userId)) {
-      const updatedUser = new User(updaterUser)
+      const updatedUser = new User(updaterUser);
       this.users.set(userId, updatedUser);
-      return updatedUser
+      return updatedUser;
     }
     return null;
   }

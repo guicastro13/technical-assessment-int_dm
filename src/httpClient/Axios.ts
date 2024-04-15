@@ -1,8 +1,8 @@
-import axios, { AxiosRequestConfig, CreateAxiosDefaults } from "axios";
+import axios, { AxiosRequestConfig, CreateAxiosDefaults } from 'axios';
 
 export interface HttpClient {
-  get: <R>(url: string, options?: AxiosRequestConfig) => Promise<R>
-  post: <R>(url: string, body: any, options?: any) => Promise<R>
+  get: <R>(url: string, options?: AxiosRequestConfig) => Promise<R>;
+  post: <R>(url: string, body: any, options?: any) => Promise<R>;
 }
 
 export class AxiosAdapter implements HttpClient {

@@ -23,13 +23,12 @@ export class ValidatorSchema {
     })
     .refine((user) => user.address || user.coordinates, 'Endereço ou Coordenadas são obrigatórios');
 
-  static userUpdateSchema = z
-    .object({
-      name: z.string().min(1).optional(),
-      email: z.string().email().optional(),
-      address: ValidatorSchema.addressSchema.optional(),
-      coordinates: ValidatorSchema.coordinatesSchema.optional(),
-    });
+  static userUpdateSchema = z.object({
+    name: z.string().min(1).optional(),
+    email: z.string().email().optional(),
+    address: ValidatorSchema.addressSchema.optional(),
+    coordinates: ValidatorSchema.coordinatesSchema.optional(),
+  });
 
   static UUID = z.string().uuid();
 
