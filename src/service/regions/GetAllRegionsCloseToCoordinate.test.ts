@@ -1,5 +1,3 @@
-import { create } from 'ts-node';
-import { regionsRepository, usersRepository } from '../../bootstrap';
 import { MemoryRegionRepository } from '../../database/test/mockRepositories/MemoryRegionRepository';
 import { MemoryUserRepository } from '../../database/test/mockRepositories/MemoryUserRepository';
 import { Coordinates } from '../../entities/Address';
@@ -46,11 +44,17 @@ describe('Get All Regions Close to Coordinate', () => {
     const createUser = new CreateUser(userRepo);
     const createRegion = new CreateRegion(regionsRepo);
     const user = await createUser.exec(userValid);
-    await createRegion.exec({ name: 'Teste', coordinates: { ...coordinate2 }, userId: user.id });
+    await createRegion.exec({ name: 'Region 1', coordinates: { ...coordinate2 }, userId: user.id });
     const geoLocationDistance = new GeoLocationDistance();
     getAllRegionsClose = new GetAllRegionsCloseToCoordinate(regionsRepo, geoLocationDistance);
   });
-  it('should return a list contain regions in determinade coordinate with a distance', async () => {
+  it('should return a list containing regions in determined coordinate with a distance', async () => {
     const result = await getAllRegionsClose.exec(coordinate1);
-  });
+    expect(result.length).toBeGreaterThan(0);
+    result.forEach(({ region, distance }) => {
+        expect(region).toBeDefined();
+        expect(distance).toBeDefined();
+        expect(distance).toBeGreaterThanOrEqual(0);
+    });
+});
 });
