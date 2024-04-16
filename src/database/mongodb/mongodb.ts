@@ -1,6 +1,5 @@
 import { Database } from '../database';
-
-const mongoose = require('mongoose');
+import mongoose from'mongoose';
 
 export class MongoDB implements Database {
   private uri;
