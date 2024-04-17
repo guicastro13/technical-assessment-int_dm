@@ -36,6 +36,6 @@ export class Address {
 }
 
 export interface GeoLocationService {
-  getAddressFromCoordinates(coordinates: Coordinates): Promise<Address>;
-  getCoordinatesFromAddress(address: Address): Promise<Coordinates>;
+  getAddressFromCoordinates(coordinates: Coordinates): Promise<Address | null>;
+  getCoordinatesFromAddress(address: Address): Promise<Coordinates | null>;
 }
