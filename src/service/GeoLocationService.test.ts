@@ -1,9 +1,10 @@
 import { Address, Coordinates } from '../entities/Address';
+import { LoggerService } from '../helpers/Logger';
 import { AxiosAdapter } from '../httpClient/Axios';
-import { GoogleMapsGeoLocationService } from './GeoLocationService';
+import { HereApiGeoLocationService } from './GeoLocationService';
 
 describe('Geo Location Service', () => {
-  let geoLocation: GoogleMapsGeoLocationService;
+  let geoLocation: HereApiGeoLocationService;
   const address = new Address({
     city: 'Boston',
     country: 'USA',
@@ -16,8 +17,9 @@ describe('Geo Location Service', () => {
     longitude: -71.05788,
   });
   beforeAll(() => {
-    const adapter = new AxiosAdapter();
-    geoLocation = new GoogleMapsGeoLocationService(adapter);
+    const logger = new LoggerService()
+    const adapter = new AxiosAdapter(logger);
+    geoLocation = new HereApiGeoLocationService(adapter);
   });
   it('Deve extrair a coordenada através do endereço', async () => {
     const coordinate = await geoLocation.getCoordinatesFromAddress(address);
