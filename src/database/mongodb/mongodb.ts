@@ -1,22 +1,24 @@
 import { Database } from '../database';
 import mongoose from'mongoose';
+import { LoggerI } from '../../helpers/Logger';
 
 export class MongoDB implements Database {
-  private uri;
-  constructor(uri: string) {
-    this.uri = uri;
-  }
+  private url = process.env.MONGO_URL as string
+  constructor(private logger: LoggerI) {}
 
   async connect() {
     try {
-      await mongoose.connect(this.uri);
-      console.log('Conectado ao banco de dados MongoDB');
+      await mongoose.connect(this.url);
+      this.logger.info('Conectado ao banco de dados MongoDB');
     } catch (err) {
-      console.error('Erro na conexão com o banco de dados:', err);
+      this.logger.error('Erro na conexão com o banco de dados');
+      if (err === 'string' || err === undefined) throw new Error(err);
+      throw new Error()
     }
   }
 
   close() {
     mongoose.connection.close();
+    this.logger.error("Banco de dados encerrado")
   }
 }
