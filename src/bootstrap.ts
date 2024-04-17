@@ -1,3 +1,5 @@
+import dotenv from "dotenv"
+import path from "node:path"
 import { CreateUser } from './service/user/Create';
 import { UserController } from './api/controllers/UserController';
 import { MemoryUserRepository } from './database/test/mockRepositories/MemoryUserRepository';
@@ -14,7 +16,15 @@ import { UpdaterRegion } from './service/regions/Update';
 import { RegionController } from './api/controllers/RegionController';
 import { UserRepositoryMongo } from './database/mongodb/repositoriesMongo/UserRepositoryMongo';
 import { RegionRepositoryMongo } from './database/mongodb/repositoriesMongo/RegionRepositoryMongo';
+import { LoggerService } from './helpers/Logger';
+import { MongoDB } from './database/mongodb/mongodb';
+import { Server } from "./server";
 
+dotenv.config({ path: path.resolve(__dirname, "..", ".env.dev")});
+
+export const logger = new LoggerService()
+
+export const mongo = new MongoDB(logger)
 //REPOSITORIES MEMORY
 export const usersRepositoryMemory = new MemoryUserRepository();
 export const regionsRepositoryMemory = new MemoryRegionRepository();
@@ -22,7 +32,7 @@ export const regionsRepositoryMemory = new MemoryRegionRepository();
 export const usersRepositoryMongo = new UserRepositoryMongo();
 export const regionRepositoryMongo = new RegionRepositoryMongo();
 
-//SERVIÇOS
+//SERVICES
 export const createUser = new CreateUser(usersRepositoryMongo);
 export const getAllUsers = new GetAllUsers(usersRepositoryMongo);
 export const getUserById = new GetUserById(usersRepositoryMongo);
@@ -44,3 +54,5 @@ export const regionsController = new RegionController(
   deleteRegion,
   updatedRegion,
 );
+
+export const server = new Server(logger)
