@@ -3,11 +3,12 @@ import express, { Express } from 'express';
 import cors from 'cors';
 import { HttpServer, RouteOptions } from './HttpServer';
 import { ZodError } from 'zod';
+import { LoggerI } from '../helpers/Logger';
 
 export class ExpressAdapter implements HttpServer {
   private _app: Express;
 
-  constructor() {
+  constructor(private logger: LoggerI) {
     this._app = express();
     this.init();
   }
@@ -21,28 +22,32 @@ export class ExpressAdapter implements HttpServer {
     const { method, path, handler } = options;
 
     this._app[method](path, async (req, res) => {
+      this.logger.info(`Rota acessada: Método: ${req.method}, Caminho: ${req.url}, Data/Hora: ${new Date().toISOString()}`);
       try {
         const { statusCode, body } = await handler(req);
         res.statusCode = statusCode;
         return res.json(body);
       } catch (error) {
         if (error instanceof HttpError) {
+          this.logger.error(`Error HTTP: ${error.statusCode}, ${error.message}`)
           return res.status(error.statusCode).json({ error: error.message });
         } else if (error instanceof ZodError) {
           const zodErrors: Record<string, string> = {};
           error.issues.forEach((zodError) => {
             const [path] = zodError.path;
             zodErrors[path ?? 'error'] = zodError.message;
+            this.logger.error(`Error ZOD: ${zodError.message}`)
           });
           return res.status(400).json({ errors: zodErrors });
         } else {
-          return res.status(400).json({ error: 'Erro desconhecido ao processar requisição.' });
+          this.logger.error("Error desconhecido no express")
+          return res.status(500).json({ error: 'Erro desconhecido ao processar requisição.' });
         }
       }
     });
   }
 
   start(port: number) {
-    this._app.listen(port, () => console.log(`Server running on http://localhost:${port}/`));
+    this._app.listen(port, () => this.logger.info(`Server running on http://localhost:${port}/`));
   }
 }
