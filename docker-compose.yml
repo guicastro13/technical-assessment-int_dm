@@ -1,13 +1,23 @@
 version: '3.9'
 
+
+networks:
+  mynetwork:
+
 services: 
   server-node:
-    image: server-node
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     depends_on:
       - mongodb
     restart: always
+    env_file:
+      - ./.env.docker
+    networks:
+      - mynetwork
 
   mongodb:
     image: mongo:latest
@@ -15,6 +25,8 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    networks:
+      - mynetwork
   
 volumes:
   mongo_data:
