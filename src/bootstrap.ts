@@ -19,10 +19,17 @@ import { RegionRepositoryMongo } from './database/mongodb/repositoriesMongo/Regi
 import { LoggerService } from './helpers/Logger';
 import { MongoDB } from './database/mongodb/mongodb';
 import { Server } from "./server";
+import { LogConverter } from "./helpers/convertToCsv";
+import { LogController } from "./api/controllers/LogController";
+import { GetRegionsCloseToCoordinateDiffUserId } from "./service/regions/GetRegionsCloseToCoordinateDiffUsarId";
+import { GeoLocationDistance } from "./service/GeoLocationDistance";
+import { GetAllRegionsCloseToCoordinate } from "./service/regions/GetAllRegionsCloseToCoordinate";
 
 dotenv.config({ path: path.resolve(__dirname, "..", ".env.dev")});
 
 export const logger = new LoggerService()
+
+export const logConverter = new LogConverter(logger);
 
 export const mongo = new MongoDB(logger)
 //REPOSITORIES MEMORY
@@ -39,12 +46,14 @@ export const getUserById = new GetUserById(usersRepositoryMongo);
 export const deleteUser = new DeleteUser(usersRepositoryMongo);
 export const updaterUser = new UpdaterUser(usersRepositoryMongo);
 
-export const createRegion = new CreateRegion(regionRepositoryMongo);
+export const createRegion = new CreateRegion(regionRepositoryMongo, getUserById);
 export const getAllRegions = new GetAllRegions(regionRepositoryMongo);
 export const getRegionBy = new GetRegionById(regionRepositoryMongo);
 export const deleteRegion = new DeleteRegion(regionRepositoryMongo);
 export const updatedRegion = new UpdaterRegion(regionRepositoryMongo);
-
+export const geoLocationDistance = new GeoLocationDistance();
+export const getRegionsCloseToCoordinateDiffUserId = new GetRegionsCloseToCoordinateDiffUserId(regionRepositoryMongo ,geoLocationDistance);
+export const getAllRegionsCloseToCoordinate = new GetAllRegionsCloseToCoordinate(regionRepositoryMongo, geoLocationDistance)
 //CONTROLLER
 export const userController = new UserController(createUser, getAllUsers, getUserById, deleteUser, updaterUser);
 export const regionsController = new RegionController(
@@ -53,6 +62,13 @@ export const regionsController = new RegionController(
   getRegionBy,
   deleteRegion,
   updatedRegion,
+  getRegionsCloseToCoordinateDiffUserId,
+  getAllRegionsCloseToCoordinate
 );
 
+//LOGGER
+export const logController = new LogController(logConverter)
+
+
+//SERVER
 export const server = new Server(logger)
