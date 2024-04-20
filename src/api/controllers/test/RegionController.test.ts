@@ -16,6 +16,9 @@ import { GetAllUsers } from '../../../service/user/GetAllUsers';
 import { CreateUser } from '../../../service/user/Create';
 import { MemoryUserRepository } from '../../../database/test/mockRepositories/MemoryUserRepository';
 import { User } from '../../../entities/User';
+import { GetRegionsCloseToCoordinateDiffUserId } from '../../../service/regions/GetRegionsCloseToCoordinateDiffUsarId';
+import { GeoLocationDistance } from '../../../service/GeoLocationDistance';
+import { GetAllRegionsCloseToCoordinate } from '../../../service/regions/GetAllRegionsCloseToCoordinate';
 
 describe('Region Controller Teste', () => {
   let regionController: RegionController;
@@ -62,13 +65,16 @@ describe('Region Controller Teste', () => {
     const deleteUser = new DeleteUser(usersRepository);
     const updaterUser = new UpdaterUser(usersRepository);
     const RegionsRepository = new MemoryRegionRepository();
-    const createRegion = new CreateRegion(RegionsRepository);
+    const createRegion = new CreateRegion(RegionsRepository, getUserById);
     const getAllRegions = new GetAllRegions(RegionsRepository);
     const getRegionById = new GetRegionById(RegionsRepository);
     const deleteRegion = new DeleteRegion(RegionsRepository);
     const updaterRegion = new UpdaterRegion(RegionsRepository);
+    const geoLocationDistance = new GeoLocationDistance();
+    const getRegionsCloseToCoordinateDiffUserId = new GetRegionsCloseToCoordinateDiffUserId(RegionsRepository ,geoLocationDistance);
+    const getAllRegionsCloseToCoordinate = new GetAllRegionsCloseToCoordinate(RegionsRepository, geoLocationDistance)
     userController = new UserController(createUser, getAllUsers, getUserById, deleteUser, updaterUser);
-    regionController = new RegionController(createRegion, getAllRegions, getRegionById, deleteRegion, updaterRegion);
+    regionController = new RegionController(createRegion, getAllRegions, getRegionById, deleteRegion, updaterRegion, getRegionsCloseToCoordinateDiffUserId, getAllRegionsCloseToCoordinate);
     const response = await userController.register(userCreator);
     const { user: responseUser } = response.body as { user: User };
     user = responseUser;
