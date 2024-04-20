@@ -1,8 +1,11 @@
+import { Coordinates } from '../../entities/Address';
 import { NoContent } from '../../errors/NoContent';
 import { CreateRegion } from '../../service/regions/Create';
 import { DeleteRegion } from '../../service/regions/Delete';
 import { GetAllRegions } from '../../service/regions/GetAllRegions';
+import { GetAllRegionsCloseToCoordinate } from '../../service/regions/GetAllRegionsCloseToCoordinate';
 import { GetRegionById } from '../../service/regions/GetRegionById';
+import { GetRegionsCloseToCoordinateDiffUserId } from '../../service/regions/GetRegionsCloseToCoordinateDiffUsarId';
 import { UpdaterRegion } from '../../service/regions/Update';
 import { HttpHandler } from '../HttpServer';
 import { ValidatorSchema } from '../validator/ValidatorSchema';
@@ -14,6 +17,8 @@ export class RegionController {
     private readonly getRegionById: GetRegionById,
     private readonly deleteRegion: DeleteRegion,
     private readonly updateRegion: UpdaterRegion,
+    private readonly getRegionsCloseToCoordinateDiffUserId: GetRegionsCloseToCoordinateDiffUserId,
+    private readonly getAllRegionsCloseToCoordinate: GetAllRegionsCloseToCoordinate
   ) {}
 
   create: HttpHandler = async (request) => {
@@ -55,4 +60,20 @@ export class RegionController {
     await this.deleteRegion.exec(regionId);
     return { statusCode: 204, body: { message: 'Excluído com sucesso' } };
   };
+
+  getRegionsCloseToCoordinate: HttpHandler = async (request) => {
+    const coordinatesString = request.query?.coordinates as string;
+    const [latitude, longitude] = coordinatesString.split(',').map(parseFloat);
+    const userId = request.query?.userId as string;
+    const howMuchCloseInKM = parseInt(request.query?.howMuchCloseInKM as string);
+    const coordinates = { latitude, longitude } as Coordinates;
+    let result;
+    if (userId) {
+      result = await this.getRegionsCloseToCoordinateDiffUserId.exec(coordinates, userId, howMuchCloseInKM);
+    } else {
+      result = await this.getAllRegionsCloseToCoordinate.exec(coordinates, howMuchCloseInKM);
+    }
+
+    return { statusCode: 200, body: { result, message: "Retornado com sucesso"}}
+  }
 }

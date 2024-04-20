@@ -1,4 +1,4 @@
-import { regionsController, userController } from '../bootstrap';
+import { logController, regionsController, userController } from '../bootstrap';
 import { HttpServer } from './HttpServer';
 
 export class Router {
@@ -75,5 +75,17 @@ export class Router {
       method: 'delete',
       handler: regionsController.delete,
     });
+
+    this.server.on({
+      path: '/regions',
+      method: 'get',
+      handler: regionsController.getRegionsCloseToCoordinate
+    })
+
+    this.server.on({
+      path: '/relatorio/generate',
+      method: 'post',
+      handler: logController.generateCsvReport
+    })
   }
 }
