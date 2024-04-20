@@ -12,6 +12,7 @@ export interface HttpRequest {
 export interface HttpResponse {
   statusCode: number;
   body?: unknown;
+  filePath?: string;
 }
 
 export type HttpHandler = (request: HttpRequest) => Promise<HttpResponse>;

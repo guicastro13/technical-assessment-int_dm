@@ -22,10 +22,11 @@ export class ExpressAdapter implements HttpServer {
     const { method, path, handler } = options;
 
     this._app[method](path, async (req, res) => {
-      this.logger.info(`Rota acessada: Método: ${req.method}, Caminho: ${req.url}, Data/Hora: ${new Date().toISOString()}`);
+      this.logger.info(`Rota acessada: Método: ${req.method}, Caminho: ${req.url}`);
       try {
-        const { statusCode, body } = await handler(req);
+        const { statusCode, body, filePath } = await handler(req);
         res.statusCode = statusCode;
+        if (filePath) res.sendFile(filePath);
         return res.json(body);
       } catch (error) {
         if (error instanceof HttpError) {
