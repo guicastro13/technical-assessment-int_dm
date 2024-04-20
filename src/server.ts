@@ -1,11 +1,12 @@
 import { ExpressAdapter } from "./api/ExpressAdapter";
 import { Router } from "./api/Router";
-import { mongo } from "./bootstrap";
+import { logConverter, mongo } from "./bootstrap";
 import { LoggerI } from "./helpers/Logger";
 
 
 export class Server {
     constructor(private logger: LoggerI){}
+
     async init() {
         try{ 
             await mongo.connect();
