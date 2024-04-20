@@ -9,16 +9,18 @@ export class GetRegionsCloseToCoordinateDiffUserId {
     private geoLocationDistance: GeoLocationDistance,
   ) {}
 
-  async exec(coordinates: Coordinates, userId: string, howMuchCloseInKM?: number) {
+  async exec(coordinates: Coordinates, userId: string, howMuchCloseInKM: number) {
+    if (isNaN(howMuchCloseInKM)) {
+      howMuchCloseInKM = 10;
+    }
     if (!userId) return [];
     const regions = await this.regionsRepo.getAll();
     if (!regions) return [];
-
     const closeRegions: Array<{ region: Region; distance: number }> = [];
 
     regions.forEach((region) => {
       const distance = this.geoLocationDistance.getDistance(coordinates, region.coordinates);
-      if ((howMuchCloseInKM === undefined || distance <= howMuchCloseInKM) && region.userId != userId) {
+      if (distance <= howMuchCloseInKM && region.userId != userId) {
         closeRegions.push({ region, distance });
       }
     });

@@ -9,19 +9,20 @@ export class GetAllRegionsCloseToCoordinate {
     private geoLocationDistance: GeoLocationDistance,
   ) {}
 
-  async exec(coordinates: Coordinates, howMuchCloseInKM?: number) {
+  async exec(coordinates: Coordinates, howMuchCloseInKM: number) {
+    if (isNaN(howMuchCloseInKM)) {
+      howMuchCloseInKM = 10;
+    }
     const regions = await this.regionsRepo.getAll();
     if (!regions) return [];
-
     const closeRegions: Array<{ region: Region; distance: number }> = [];
-
+    
     regions.forEach((region) => {
       const distance = this.geoLocationDistance.getDistance(coordinates, region.coordinates);
-      if (howMuchCloseInKM === undefined || distance <= howMuchCloseInKM) {
+      if (distance <= howMuchCloseInKM) {
         closeRegions.push({ region, distance });
       }
     });
-
     return closeRegions;
   }
 }

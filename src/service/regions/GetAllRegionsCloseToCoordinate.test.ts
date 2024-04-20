@@ -49,7 +49,7 @@ describe('Get All Regions Close to Coordinate', () => {
     getAllRegionsClose = new GetAllRegionsCloseToCoordinate(regionsRepo, geoLocationDistance);
   });
   it('should return a list containing regions in determined coordinate with a distance', async () => {
-    const result = await getAllRegionsClose.exec(coordinate1);
+    const result = await getAllRegionsClose.exec(coordinate1, 22);
     expect(result.length).toBeGreaterThan(0);
     result.forEach(({ region, distance }) => {
       expect(region).toBeDefined();
