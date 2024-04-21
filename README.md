@@ -1,10 +1,10 @@
 # Documentação da API OZmap
 
 ## Sumário
-[Visão Geral](#geral_vision)
-[Configurando o ambiente](#config)
-[Arquitetura da API](#architeture)
-[Funcionalidades da API](#functions)
+- [Visão Geral](#geral_vision)
+- [Configurando o ambiente](#config)
+- [Arquitetura da API](#architeture)
+- [Funcionalidades da API](#functions)
 <a id="geral_vision"></a>
 ## 1️⃣ Apresentação do Projeto
 
