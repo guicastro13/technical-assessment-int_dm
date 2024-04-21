@@ -1,26 +1,27 @@
 # Documentação da API OZmap
 
+## Sumário
+[Visão Geral](#geral_vision)
+[Configurando o ambiente](#config)
+[Arquitetura da API](#architeture)
+[Funcionalidades da API](#functions)
+<a id="geral_vision"></a>
 ## 1️⃣ Apresentação do Projeto
 
-### 1.1 Descrição do OZmap e do Desafio Técnico
-
-O **OZmap** é uma plataforma que visa otimizar sistemas de geolocalização, fornecendo uma solução robusta para gerenciar usuários e localizações. Este documento descreve a API desenvolvida para facilitar o gerenciamento de dados geoespaciais.
-
-A geolocalização desempenha um papel fundamental no OZmap, permitindo análises precisas e tomadas de decisão baseadas em dados reais. A API contribui para essa missão ao fornecer funcionalidades de CRUD para usuários e regiões, além de integração com serviços de geolocalização externos.
+A geolocalização desempenha um papel fundamental no mundo, permitindo análises precisas e tomadas de decisão baseadas em dados reais. A API contribui para essa missão ao fornecer funcionalidades de CRUD para usuários e regiões, além de integração com serviços de geolocalização externos.
 
 ### 1.2 Visão Geral da API
 
-A API OZmap oferece funcionalidades para criar, listar, atualizar e excluir usuários e regiões. Ao utilizar a API, os usuários podem gerenciar facilmente seus dados geoespaciais, promovendo maior eficiência e tomada de decisões mais precisas.
+A API oferece funcionalidades para criar, listar, atualizar e excluir usuários e regiões. Ao utilizar a API, os usuários podem gerenciar facilmente seus dados geoespaciais, promovendo maior eficiência e tomada de decisões mais precisas.
 
 Os principais diferenciais da API incluem sua integração com serviços de geolocalização externos, garantindo a precisão das coordenadas, e sua facilidade de uso, proporcionando uma experiência amigável para os desenvolvedores.
 
+<a id="config"></a>
 ## 2️⃣ Configuração do Ambiente
 ### 2.1 Pré-requisitos
-
-Para executar a API OZmap, você precisará ter o Docker instalado em sua máquina.
+Para executar a API, você precisará ter o Docker instalado em sua máquina.
 
 ### 2.2 Instalação do Docker
-
 Para instalar o Docker, siga as instruções específicas para o seu sistema operacional:
 
 - **Windows**: [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
@@ -28,7 +29,6 @@ Para instalar o Docker, siga as instruções específicas para o seu sistema ope
 - **Linux**: [Docker Engine](https://docs.docker.com/engine/install/)
 
 ### 2.3 Configuração do Projeto
-
 Após instalar o Docker, clone o repositório do projeto:
 
 ```bash git clone git@github.com:guicastro13/technical-assessment-int_dm.git cd technical-assessment-int_dm```
@@ -37,7 +37,7 @@ Você ira precisar de um arquivo .env para as variáveis de ambiente, crie um ar
 ```touch .env.docker```
 E adicione no seu conteúdo a url do banco mongodb e também a chave da api HereAPI, para o serviço de GeoLocalização
 
-``` GEO_HEREAPI_KEY='iKetBAF352CCNoMYmLlrygt6jA-JJf3_RuuNtlJBlFA'    MONGO_URL='mongodb://localhost:27017/techinical_test' ```
+``` GEO_HEREAPI_KEY='iKetBAF352CCNoMYmLlrygt6jA-JJf3_RuuNtlJBlFA'  MONGO_URL='mongodb://localhost:27017/techinical_test' ```
 
 NOTA: Caso você deseje rodar o projeto localmente, você ira precisar ter o mongo intalado em sua maquina, e criar um arquivo ***.env.dev***, com as mesmas informações.
 
@@ -46,7 +46,7 @@ NOTA: Caso você deseje rodar o projeto localmente, você ira precisar ter o mon
 Após realizar o clone do projeto, você precisa inicializar a API atravez do comando
 
 ```bash docker-compose up --build```
-
+<a id="architeture"></a>
 ## 3️⃣ Arquitetura da API
 - **Padrão RESTful**:
 A API segue os princípios do padrão RESTful. Isso significa que os desenvolvedores podem interagir com a API de forma intuitiva e previsível, utilizando métodos HTTP (GET, POST, PUT, DELETE) para realizar operações CRUD (Criar, Ler, Atualizar, Deletar) nos recursos da API.
@@ -69,7 +69,7 @@ A API utiliza injeção de dependência para gerenciar as dependências entre se
 
 O diagrama de classes abaixo representa as entidades principais da API, seus atributos, métodos e relacionamentos.
 
-
+<a id="functions"></a>
 ## 4️⃣ Funcionalidades da API
 
 ### 4.1 CRUD de Usuários
