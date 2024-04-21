@@ -6,6 +6,7 @@ import { GeoLocationDistance } from '../GeoLocationDistance';
 import { CreateUser } from '../user/Create';
 import { GetAllRegionsCloseToCoordinate } from './GetAllRegionsCloseToCoordinate';
 import { CreateRegion } from './Create';
+import { GetUserById } from '../user/GetUserById';
 
 describe('Get All Regions Close to Coordinate', () => {
   let getAllRegionsClose: GetAllRegionsCloseToCoordinate;
@@ -42,7 +43,8 @@ describe('Get All Regions Close to Coordinate', () => {
     const userRepo = new MemoryUserRepository();
     const regionsRepo = new MemoryRegionRepository();
     const createUser = new CreateUser(userRepo);
-    const createRegion = new CreateRegion(regionsRepo);
+    const getUserById = new GetUserById(userRepo)
+    const createRegion = new CreateRegion(regionsRepo,getUserById);
     const user = await createUser.exec(userValid);
     await createRegion.exec({ name: 'Region 1', coordinates: { ...coordinate2 }, userId: user.id });
     const geoLocationDistance = new GeoLocationDistance();
