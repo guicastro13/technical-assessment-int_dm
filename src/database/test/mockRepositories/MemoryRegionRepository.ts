@@ -21,15 +21,6 @@ export class MemoryRegionRepository implements RegionsRepositoryI {
     return this.regions.get(regionId) || null;
   }
 
-  async getRegionByName(name: string): Promise<Region | null> {
-    for (const [, user] of this.regions) {
-      if (user.name === name) {
-        return user;
-      }
-    }
-    return null;
-  }
-
   async updateById(id: string, updatedRegion: Region): Promise<Region | null> {
     if (this.regions.has(id)) {
       this.regions.set(id, updatedRegion);

@@ -22,12 +22,6 @@ describe('MemoryRegionRepository', () => {
     expect(createdRegion).toEqual(region);
   });
 
-  test('getRegionByName', async () => {
-    await regionRepository.save(region);
-    const retrievedRegion = await regionRepository.getRegionByName('Test Region');
-    expect(retrievedRegion).toEqual(region);
-  });
-
   test('update', async () => {
     await regionRepository.save(region);
     const updatedRegionData = {
@@ -35,14 +29,14 @@ describe('MemoryRegionRepository', () => {
       name: 'Updated Test Region',
     };
     await regionRepository.updateById(region.id, updatedRegionData);
-    const retrievedRegion = await regionRepository.getRegionByName('Updated Test Region');
+    const retrievedRegion = await regionRepository.getRegionById(region.id);
     expect(retrievedRegion).toEqual(updatedRegionData);
   });
 
   test('delete', async () => {
     await regionRepository.save(region);
     await regionRepository.deleteById(region.id);
-    const retrievedRegion = await regionRepository.getRegionByName('Test Region');
+    const retrievedRegion = await regionRepository.getRegionById(region.id);
     expect(retrievedRegion).toBeNull();
   });
 });
