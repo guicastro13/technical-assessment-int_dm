@@ -24,6 +24,8 @@ import { LogController } from './api/controllers/LogController';
 import { GetRegionsCloseToCoordinateDiffUserId } from './service/regions/GetRegionsCloseToCoordinateDiffUsarId';
 import { GeoLocationDistance } from './service/GeoLocationDistance';
 import { GetAllRegionsCloseToCoordinate } from './service/regions/GetAllRegionsCloseToCoordinate';
+import { HereApiGeoLocationService } from './service/GeoLocationService';
+import { AxiosAdapter } from './httpClient/Axios';
 
 dotenv.config({ path: path.resolve(__dirname, '..', '.env.dev') });
 
@@ -32,6 +34,8 @@ export const logger = new LoggerService();
 export const logConverter = new LogConverter(logger);
 
 export const mongo = new MongoDB(logger);
+
+export const axios = new AxiosAdapter(logger);
 //REPOSITORIES MEMORY
 export const usersRepositoryMemory = new MemoryUserRepository();
 export const regionsRepositoryMemory = new MemoryRegionRepository();
@@ -40,11 +44,13 @@ export const usersRepositoryMongo = new UserRepositoryMongo();
 export const regionRepositoryMongo = new RegionRepositoryMongo();
 
 //SERVICES
-export const createUser = new CreateUser(usersRepositoryMongo);
+export const geoLocationService = new HereApiGeoLocationService(axios);
+
+export const createUser = new CreateUser(usersRepositoryMongo, geoLocationService);
 export const getAllUsers = new GetAllUsers(usersRepositoryMongo);
 export const getUserById = new GetUserById(usersRepositoryMongo);
 export const deleteUser = new DeleteUser(usersRepositoryMongo);
-export const updaterUser = new UpdaterUser(usersRepositoryMongo);
+export const updaterUser = new UpdaterUser(usersRepositoryMongo, geoLocationService);
 
 export const createRegion = new CreateRegion(regionRepositoryMongo, getUserById);
 export const getAllRegions = new GetAllRegions(regionRepositoryMongo);
