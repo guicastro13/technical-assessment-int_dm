@@ -46,10 +46,6 @@ export class RegionController {
 
   update: HttpHandler = async (request) => {
     const regionId = ValidatorSchema.UUID.parse(request.params?.region_id);
-    const region = await this.getRegionById.exec(regionId);
-    if (!region) {
-      return { statusCode: 200, body: { message: 'Nenhuma região com este ID' } };
-    }
     const { name, coordinates } = ValidatorSchema.regionUpdateSchema.parse(request.body);
     const updatedRegion = await this.updateRegion.exec(regionId, { name, coordinates });
     return { statusCode: 200, body: { updatedRegion, message: 'Entidade atualizada com sucesso' } };
