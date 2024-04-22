@@ -15,6 +15,12 @@ export class Coordinates {
   latitude: number;
   longitude: number;
   constructor(attributes: CoordinatesAttributes) {
+    if (attributes.longitude < -180.0 || attributes.longitude > 180.0) {
+      throw new Error('Longitude deve estar entre -180 e 180');
+    }
+    if (attributes.latitude < -90.0 || attributes.latitude > 90.0) {
+      throw new Error('Latitude deve estar entre -90 e 90');
+    }
     this.latitude = attributes.latitude;
     this.longitude = attributes.longitude;
   }
