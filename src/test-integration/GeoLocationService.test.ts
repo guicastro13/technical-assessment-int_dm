@@ -1,7 +1,7 @@
 import { Address, Coordinates } from '../entities/Address';
 import { LoggerService } from '../helpers/Logger';
 import { AxiosAdapter } from '../httpClient/Axios';
-import { HereApiGeoLocationService } from './GeoLocationService';
+import { HereApiGeoLocationService } from '../service/GeoLocationService';
 
 describe('Geo Location Service', () => {
   let geoLocation: HereApiGeoLocationService;
