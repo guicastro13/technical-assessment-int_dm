@@ -14,16 +14,14 @@ export class GetRegionsCloseToCoordinateDiffUserId {
       howMuchCloseInKM = 10;
     }
     if (!userId) return [];
-    const regions = await this.regionsRepo.getAll();
+    const regions = await this.regionsRepo.getRegionsNearby(coordinates, howMuchCloseInKM, userId);
     if (!regions) return [];
     const closeRegions: Array<{ region: Region; distance: number }> = [];
 
     regions.forEach((region) => {
-      const distance = this.geoLocationDistance.getDistance(coordinates, region.coordinates);
-      if (distance <= howMuchCloseInKM && region.userId != userId) {
-        closeRegions.push({ region, distance });
-      }
-    });
+        const distance = this.geoLocationDistance.getDistance(coordinates, region.coordinates);
+        closeRegions.push({ region, distance });    
+      });
 
     return closeRegions;
   }

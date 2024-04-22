@@ -13,15 +13,12 @@ export class GetAllRegionsCloseToCoordinate {
     if (isNaN(howMuchCloseInKM)) {
       howMuchCloseInKM = 10;
     }
-    const regions = await this.regionsRepo.getAll();
+    const regions = await this.regionsRepo.getRegionsNearby(coordinates, howMuchCloseInKM);
     if (!regions) return [];
     const closeRegions: Array<{ region: Region; distance: number }> = [];
-
     regions.forEach((region) => {
       const distance = this.geoLocationDistance.getDistance(coordinates, region.coordinates);
-      if (distance <= howMuchCloseInKM) {
-        closeRegions.push({ region, distance });
-      }
+      closeRegions.push({ region, distance });
     });
     return closeRegions;
   }
