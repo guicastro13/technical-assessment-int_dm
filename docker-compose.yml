@@ -27,6 +27,16 @@ services:
       - mongo_data:/data/db
     networks:
       - mynetwork
+
+  test-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - server-node
+    command: npm run test
+    networks:
+      - mynetwork
   
 volumes:
   mongo_data:
