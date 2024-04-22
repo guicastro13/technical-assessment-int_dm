@@ -46,6 +46,11 @@ NOTA: Caso você deseje rodar o projeto localmente, você ira precisar ter o mon
 Após realizar o clone do projeto, você precisa inicializar a API atravez do comando
 
 ```bash docker-compose up --build```
+
+Para rodar a versão de testes
+
+````bash docker-compose run test-service```
+
 <a id="architeture"></a>
 ## 3️⃣ Arquitetura da API
 - **Padrão RESTful**:
