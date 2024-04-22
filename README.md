@@ -162,4 +162,4 @@ O diagrama de classes abaixo representa as entidades principais da API, seus atr
     - Se endDate não for fornecido, o relatório incluirá apenas os logs do dia.
     - Se ambos startDate e endDate forem fornecidos, o relatório incluirá apenas os logs dentro do intervalo de datas especificado.
 - **Exemplo de Chamada de API**:
-```http GET /relatorio/generate?startDate=2024-04-17&endDate=2024-04-20```
+```http POST /relatorio/generate?startDate=2024-04-17&endDate=2024-04-20```
