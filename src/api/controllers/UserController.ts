@@ -38,18 +38,11 @@ export class UserController {
   getById: HttpHandler = async (request) => {
     const userId = ValidatorSchema.UUID.parse(request.params?.user_id);
     let user = await this.getUserById.exec(userId);
-    if (user == null) {
-      return { statusCode: 200, body: { message: 'Nenhum usuario com esse ID' } };
-    }
     return { statusCode: 200, body: { user, message: 'Requisção concluida com sucesso' } };
   };
 
   update: HttpHandler = async (request) => {
     const userId = ValidatorSchema.UUID.parse(request.params?.user_id);
-    let user = await this.getUserById.exec(userId);
-    if (user == null) {
-      return { statusCode: 200, body: { message: 'Nenhum usuario com esse ID' } };
-    }
     const { name, email, address, coordinates } = ValidatorSchema.userUpdateSchema.parse(request.body);
     const updatedUser = await this.updaterUser.exec(userId, {
       name,
