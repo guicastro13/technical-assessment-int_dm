@@ -23,7 +23,7 @@ import { LoggerService } from '../../../helpers/Logger';
 import { AxiosAdapter } from '../../../httpClient/Axios';
 import { HereApiGeoLocationService } from '../../../service/GeoLocationService';
 
-describe('Region Controller Teste', () => {
+describe('Region Controller Test', () => {
   let regionController: RegionController;
   let userController: UserController;
   let user: User;
@@ -115,21 +115,21 @@ describe('Region Controller Teste', () => {
     };
   });
 
-  it('Deve criar uma região', async () => {
+  it('should create a region', async () => {
     const response = await regionController.create(requestCreateRegionWithSuccess);
     expect(response.statusCode).toBe(201);
   });
 
-  it('Não deve criar uma região com campos incompletos', async () => {
+  it('should NOT create a region with incomplete fields', async () => {
     await expect(async () => await regionController.create(requestCreateRegionWithError)).rejects.toThrow(ZodError);
   });
 
-  it('Deve retornar todas as regiões', async () => {
+  it('should return all regions', async () => {
     const response = await regionController.getAll(requestEmpty);
     expect(response.statusCode).toBe(200);
   });
 
-  it('Deve retornar uma região por UUID', async () => {
+  it('should return a region by UUID', async () => {
     await regionController.create(requestCreateRegionWithSuccess);
     const responseGetAll: HttpResponseCustom = await regionController.getAll(requestEmpty);
     const { regions } = responseGetAll.body as { regions: Array<Region> };
@@ -138,7 +138,7 @@ describe('Region Controller Teste', () => {
     expect(response.statusCode).toBe(200);
   });
 
-  it('Deve atualizar uma região', async () => {
+  it('should update a region', async () => {
     const responseGetAll = await regionController.getAll(requestEmpty);
     const { regions } = responseGetAll.body as { regions: Array<Region> };
     const regionId = regions[0].id;
@@ -154,7 +154,7 @@ describe('Region Controller Teste', () => {
     expect(response.statusCode).toBe(200);
   });
 
-  it('Deve excluir uma região', async () => {
+  it('should exclude a region', async () => {
     const responseGetAll = await regionController.getAll(requestEmpty);
     const { regions } = responseGetAll.body as { regions: Array<Region> };
     const regionId = regions[0].id;
