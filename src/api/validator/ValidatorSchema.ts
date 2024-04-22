@@ -1,4 +1,5 @@
-import { z } from 'zod';
+import { ZodError, z } from 'zod';
+import { InvalidParamsError } from '../../errors/InvalidParam';
 
 export class ValidatorSchema {
   static addressSchema = z.object({
@@ -21,14 +22,31 @@ export class ValidatorSchema {
       address: ValidatorSchema.addressSchema.nullish(),
       coordinates: ValidatorSchema.coordinatesSchema.nullish(),
     })
-    .refine((user) => user.address || user.coordinates, 'Endereço ou Coordenadas são obrigatórios');
+    .refine((user) => {
+      if (!user.address && !user.coordinates) {
+        throw new InvalidParamsError('Você deve fornecer coordenadas OU endereço.');
+      }
+      if (user.address && user.coordinates) {
+        throw new InvalidParamsError('Você deve fornecer coordenadas OU endereço, não os ambos.');
+      }
+      return true;
+    });
 
-  static userUpdateSchema = z.object({
-    name: z.string().min(1).optional(),
-    email: z.string().email().optional(),
-    address: ValidatorSchema.addressSchema.optional(),
-    coordinates: ValidatorSchema.coordinatesSchema.optional(),
-  });
+  static userUpdateSchema = z
+    .object({
+      name: z.string().min(1).optional(),
+      email: z.string().email().optional(),
+      address: ValidatorSchema.addressSchema.optional(),
+      coordinates: ValidatorSchema.coordinatesSchema.optional(),
+    })
+    .refine((user) => {
+      if (user.address && user.coordinates) {
+        throw new InvalidParamsError('Você deve fornecer coordenadas OU endereço, não os ambos.');
+
+        // 'Endereço ou Coordenadas são obrigatórios'
+      }
+      return true;
+    });
 
   static UUID = z.string().uuid();
 
