@@ -8,6 +8,9 @@ import { CreateRegion } from './Create';
 import { GetRegionsCloseToCoordinateDiffUserId } from './GetRegionsCloseToCoordinateDiffUsarId';
 import { Region } from '../../entities/Region';
 import { GetUserById } from '../user/GetUserById';
+import { LoggerService } from '../../helpers/Logger';
+import { AxiosAdapter } from '../../httpClient/Axios';
+import { HereApiGeoLocationService } from '../GeoLocationService';
 
 describe('Get All Regions Close to Coordinate', () => {
   let getRegionsCloseToCoordinateDiifUser: GetRegionsCloseToCoordinateDiffUserId;
@@ -45,8 +48,8 @@ describe('Get All Regions Close to Coordinate', () => {
     name: 'John Doe',
     email: 'john@example.com',
     coordinates: {
-      latitude: 123,
-      longitude: 456,
+      latitude: -22.400830790167916,
+      longitude: -47.562983198639216,
     },
     createdAt: new Date(),
   };
@@ -55,8 +58,8 @@ describe('Get All Regions Close to Coordinate', () => {
     name: 'Junior Goa',
     email: 'junior@example.com',
     coordinates: {
-      latitude: 124,
-      longitude: 456,
+      latitude: -22.400830790167916,
+      longitude: -47.562983198639216,
     },
     createdAt: new Date(),
   };
@@ -64,7 +67,10 @@ describe('Get All Regions Close to Coordinate', () => {
   beforeAll(async () => {
     const userRepo = new MemoryUserRepository();
     const regionsRepo = new MemoryRegionRepository();
-    const createUser = new CreateUser(userRepo);
+    const logger = new LoggerService();
+    const axios = new AxiosAdapter(logger);
+    const geoLocationService = new HereApiGeoLocationService(axios);
+    const createUser = new CreateUser(userRepo, geoLocationService);
     const getUserById = new GetUserById(userRepo);
     const createRegion = new CreateRegion(regionsRepo, getUserById);
     const user_1 = await createUser.exec(userValid);

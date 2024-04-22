@@ -1,14 +1,15 @@
 import mongoose from 'mongoose';
 import { Uuid } from '../../../helpers/uuid';
 
-const coordinatesSchema = new mongoose.Schema({
-  latitude: {
-    type: Number,
-    required: true,
+const pointSchema = new mongoose.Schema({
+  type: {
+    type: String,
+    enum: ['Point'],
+    required: false,
   },
-  longitude: {
-    type: Number,
-    required: true,
+  coordinates: {
+    type: [Number],
+    required: false,
   },
 });
 
@@ -55,10 +56,7 @@ const userSchema = new mongoose.Schema({
     type: addressSchema,
     required: false,
   },
-  coordinates: {
-    type: coordinatesSchema,
-    required: false,
-  },
+  coordinates: pointSchema,
   createdAt: {
     type: Date,
     default: Date.now,
@@ -80,10 +78,7 @@ const regionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  coordinates: {
-    type: coordinatesSchema,
-    required: true,
-  },
+  coordinates: pointSchema,
   userId: {
     type: String,
     required: true,
@@ -97,6 +92,9 @@ const regionSchema = new mongoose.Schema({
     default: null,
   },
 });
+
+userSchema.index({ coordinates: '2dsphere' });
+regionSchema.index({ coordinates: '2dsphere' });
 
 const UserModel = mongoose.model('User', userSchema);
 const RegionModel = mongoose.model('Region', regionSchema);
