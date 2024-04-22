@@ -49,7 +49,7 @@ Após realizar o clone do projeto, você precisa inicializar a API atravez do co
 
 Para rodar a versão de testes
 
-````bash docker-compose run test-service```
+```bash docker-compose run test-service```
 
 <a id="architeture"></a>
 ## 3️⃣ Arquitetura da API
@@ -147,7 +147,7 @@ O diagrama de classes abaixo representa as entidades principais da API, seus atr
 ```http GET /regions?coordinates=-23.5505,-46.6333&userId=userIdUUID&howMuchCloseInKM=20```
 
 ### 4.4 Gerar Relatório dos Logs da API
-- **Endpoint**: `GET /relatorio/generate?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD`
+- **Endpoint**: `POST /relatorio/generate?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD`
 - **Descrição**: Gera um relatório em formato CSV contendo informações dos logs da API.
 - **Parâmetros da Requisição**:
     - `startDate` (string): Data de início para filtrar os logs (formato: "YYYY-MM-DD"). Se fornecido, apenas os logs a partir desta data serão incluídos no relatório.
