@@ -1,3 +1,4 @@
+import { Coordinates } from '../../../entities/Address';
 import { Region } from '../../../entities/Region';
 import { RegionsRepositoryI } from '../../repositoriesInterfaces/RegionsRepositoryInterface';
 
@@ -6,6 +7,10 @@ export class MemoryRegionRepository implements RegionsRepositoryI {
 
   constructor() {
     this.regions = new Map<string, Region>();
+  }
+
+  async getRegionsNearby(coordinates: Coordinates, howMuchCloseInKM: number): Promise<Region[] | null> {
+    throw new Error('Method not implemented.');
   }
 
   async save(region: Region): Promise<Region> {
