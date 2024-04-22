@@ -19,6 +19,9 @@ import { User } from '../../../entities/User';
 import { GetRegionsCloseToCoordinateDiffUserId } from '../../../service/regions/GetRegionsCloseToCoordinateDiffUsarId';
 import { GeoLocationDistance } from '../../../service/GeoLocationDistance';
 import { GetAllRegionsCloseToCoordinate } from '../../../service/regions/GetAllRegionsCloseToCoordinate';
+import { LoggerService } from '../../../helpers/Logger';
+import { AxiosAdapter } from '../../../httpClient/Axios';
+import { HereApiGeoLocationService } from '../../../service/GeoLocationService';
 
 describe('Region Controller Teste', () => {
   let regionController: RegionController;
@@ -39,11 +42,11 @@ describe('Region Controller Teste', () => {
       name: 'Usuario 1',
       email: 'usuario_1@example.com',
       address: {
-        street: '123 Main St',
-        city: 'City',
-        state: 'State',
-        country: 'Country',
-        zipCode: '12345',
+        city: 'Boston',
+        country: 'USA',
+        state: 'MA',
+        street: 'Washington St',
+        zipCode: '02108-4603',
       },
     },
   };
@@ -59,11 +62,14 @@ describe('Region Controller Teste', () => {
 
   beforeAll(async () => {
     const usersRepository = new MemoryUserRepository();
-    const createUser = new CreateUser(usersRepository);
+    const logger = new LoggerService();
+    const axios = new AxiosAdapter(logger);
+    const geoLocationService = new HereApiGeoLocationService(axios);
+    const createUser = new CreateUser(usersRepository, geoLocationService);
     const getAllUsers = new GetAllUsers(usersRepository);
     const getUserById = new GetUserById(usersRepository);
     const deleteUser = new DeleteUser(usersRepository);
-    const updaterUser = new UpdaterUser(usersRepository);
+    const updaterUser = new UpdaterUser(usersRepository, geoLocationService);
     const RegionsRepository = new MemoryRegionRepository();
     const createRegion = new CreateRegion(RegionsRepository, getUserById);
     const getAllRegions = new GetAllRegions(RegionsRepository);
