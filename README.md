@@ -31,7 +31,9 @@ Para instalar o Docker, siga as instruções específicas para o seu sistema ope
 ### 2.3 Configuração do Projeto
 Após instalar o Docker, clone o repositório do projeto:
 
-```bash git clone git@github.com:guicastro13/technical-assessment-int_dm.git cd technical-assessment-int_dm```
+```git clone git@github.com:guicastro13/technical-assessment-int_dm.git``` ```cd technical-assessment-int_dm```
+
+E ```git checkout guilherme-castro``` para mudar para a branch do projeto
 
 Você ira precisar de um arquivo .env para as variáveis de ambiente, crie um arquivo ***.env.docker*** na pasta raiz do projeto,
 ```touch .env.docker```
@@ -45,11 +47,11 @@ NOTA: Caso você deseje rodar o projeto localmente, você ira precisar ter o mon
 
 Após realizar o clone do projeto, você precisa inicializar a API atravez do comando
 
-```bash docker-compose up --build```
+```docker-compose up --build```
 
 Para rodar a versão de testes
 
-```bash docker-compose run test-service```
+```docker-compose run test-service```
 
 <a id="architeture"></a>
 ## 3️⃣ Arquitetura da API
