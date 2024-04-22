@@ -31,7 +31,9 @@ Para instalar o Docker, siga as instruções específicas para o seu sistema ope
 ### 2.3 Configuração do Projeto
 Após instalar o Docker, clone o repositório do projeto:
 
-```bash git clone git@github.com:guicastro13/technical-assessment-int_dm.git cd technical-assessment-int_dm```
+```git clone git@github.com:guicastro13/technical-assessment-int_dm.git``` ```cd technical-assessment-int_dm```
+
+E ```git checkout guilherme-castro``` para mudar para a branch do projeto
 
 Você ira precisar de um arquivo .env para as variáveis de ambiente, crie um arquivo ***.env.docker*** na pasta raiz do projeto,
 ```touch .env.docker```
@@ -45,11 +47,11 @@ NOTA: Caso você deseje rodar o projeto localmente, você ira precisar ter o mon
 
 Após realizar o clone do projeto, você precisa inicializar a API atravez do comando
 
-```bash docker-compose up --build```
+```docker-compose up --build```
 
 Para rodar a versão de testes
 
-````bash docker-compose run test-service```
+```docker-compose run test-service```
 
 <a id="architeture"></a>
 ## 3️⃣ Arquitetura da API
@@ -147,7 +149,7 @@ O diagrama de classes abaixo representa as entidades principais da API, seus atr
 ```http GET /regions?coordinates=-23.5505,-46.6333&userId=userIdUUID&howMuchCloseInKM=20```
 
 ### 4.4 Gerar Relatório dos Logs da API
-- **Endpoint**: `GET /relatorio/generate?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD`
+- **Endpoint**: `POST /relatorio/generate?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD`
 - **Descrição**: Gera um relatório em formato CSV contendo informações dos logs da API.
 - **Parâmetros da Requisição**:
     - `startDate` (string): Data de início para filtrar os logs (formato: "YYYY-MM-DD"). Se fornecido, apenas os logs a partir desta data serão incluídos no relatório.
@@ -162,4 +164,4 @@ O diagrama de classes abaixo representa as entidades principais da API, seus atr
     - Se endDate não for fornecido, o relatório incluirá apenas os logs do dia.
     - Se ambos startDate e endDate forem fornecidos, o relatório incluirá apenas os logs dentro do intervalo de datas especificado.
 - **Exemplo de Chamada de API**:
-```http GET /relatorio/generate?startDate=2024-04-17&endDate=2024-04-20```
+```http POST /relatorio/generate?startDate=2024-04-17&endDate=2024-04-20```
