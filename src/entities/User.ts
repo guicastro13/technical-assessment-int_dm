@@ -32,9 +32,6 @@ export class User {
   createdAt: Date;
   updatedAt?: Date | null;
   constructor(attributes: UserAttributes) {
-    if (!User.hasAddressOrCoordinates(attributes)) {
-      throw new UnprocessableEntity('User');
-    }
     this.id = attributes.id ? attributes.id : Uuid.generate();
     this.name = attributes.name;
     this.email = attributes.email;
@@ -42,11 +39,5 @@ export class User {
     this.coordinates = attributes.coordinates ? new Coordinates(attributes.coordinates) : null;
     this.updatedAt = attributes.updatedAt ?? null;
     this.createdAt = attributes.createdAt ?? new Date();
-  }
-
-  static hasAddressOrCoordinates(attributes: UserAttributes): boolean {
-    if (attributes.address && attributes.coordinates) return false;
-    if (!attributes.address && !attributes.coordinates) return false;
-    return true;
   }
 }
