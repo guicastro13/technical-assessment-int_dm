@@ -30,18 +30,18 @@ export class ExpressAdapter implements HttpServer {
         return res.json(body);
       } catch (error) {
         if (error instanceof HttpError) {
-          this.logger.error(`Error HTTP: ${error.statusCode}, ${error.message}`)
+          this.logger.error(`Error HTTP: ${error.statusCode}, ${error.message}`);
           return res.status(error.statusCode).json({ error: error.message });
         } else if (error instanceof ZodError) {
           const zodErrors: Record<string, string> = {};
           error.issues.forEach((zodError) => {
             const [path] = zodError.path;
             zodErrors[path ?? 'error'] = zodError.message;
-            this.logger.error(`Error ZOD: ${zodError.message}`)
+            this.logger.error(`Error ZOD: ${zodError.message}`);
           });
           return res.status(400).json({ errors: zodErrors });
         } else {
-          this.logger.error("Error desconhecido no express")
+          this.logger.error('Error desconhecido no express');
           return res.status(500).json({ error: 'Erro desconhecido ao processar requisição.' });
         }
       }

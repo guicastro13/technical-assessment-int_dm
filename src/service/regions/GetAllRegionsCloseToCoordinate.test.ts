@@ -43,8 +43,8 @@ describe('Get All Regions Close to Coordinate', () => {
     const userRepo = new MemoryUserRepository();
     const regionsRepo = new MemoryRegionRepository();
     const createUser = new CreateUser(userRepo);
-    const getUserById = new GetUserById(userRepo)
-    const createRegion = new CreateRegion(regionsRepo,getUserById);
+    const getUserById = new GetUserById(userRepo);
+    const createRegion = new CreateRegion(regionsRepo, getUserById);
     const user = await createUser.exec(userValid);
     await createRegion.exec({ name: 'Region 1', coordinates: { ...coordinate2 }, userId: user.id });
     const geoLocationDistance = new GeoLocationDistance();

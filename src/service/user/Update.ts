@@ -7,7 +7,7 @@ export class UpdaterUser {
 
   async exec(userId: string, updatederUser: UserAttributesUpdate): Promise<User | null> {
     const user = await this.usersRepo.getUserById(userId);
-    if (user === null) throw new Conflict("Nenhum usuário encontrado com esse ID")
+    if (user === null) throw new Conflict('Nenhum usuário encontrado com esse ID');
     const { address, coordinates, email, name } = updatederUser;
     const newUser = new User({
       id: userId,

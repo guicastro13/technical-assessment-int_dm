@@ -7,7 +7,7 @@ export class UpdaterRegion {
 
   async exec(regionId: string, updatederRegions: RegionAttributesUpdate): Promise<Region | null> {
     const region = await this.regionsRepo.getRegionById(regionId);
-    if (region === null) throw new Conflict("Nenhuma região encontrada com esse ID")
+    if (region === null) throw new Conflict('Nenhuma região encontrada com esse ID');
     const { coordinates, name } = updatederRegions;
     const newRegion = new Region({
       id: regionId,

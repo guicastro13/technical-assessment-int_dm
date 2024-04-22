@@ -36,13 +36,11 @@ describe('GET LOCATION DISTANCE', () => {
   });
   it('Should return a distace once given 2 coordenates', async () => {
     const result = geodistance.getDistance(coordinateA1, coordinateA2);
-    expect(result).toBeCloseTo(0.950)
+    expect(result).toBeCloseTo(0.95);
   });
 
   it('Should return a distace once given 2 coordenates', async () => {
     const result = geodistance.getDistance(coordinateB1, coordinateB2);
-    expect(result).toBeCloseTo(21.64)
+    expect(result).toBeCloseTo(21.64);
   });
-
-
 });

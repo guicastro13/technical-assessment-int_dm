@@ -79,13 +79,13 @@ export class Router {
     this.server.on({
       path: '/regions',
       method: 'get',
-      handler: regionsController.getRegionsCloseToCoordinate
-    })
+      handler: regionsController.getRegionsCloseToCoordinate,
+    });
 
     this.server.on({
       path: '/relatorio/generate',
       method: 'post',
-      handler: logController.generateCsvReport
-    })
+      handler: logController.generateCsvReport,
+    });
   }
 }

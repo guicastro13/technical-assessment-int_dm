@@ -18,7 +18,7 @@ export class RegionController {
     private readonly deleteRegion: DeleteRegion,
     private readonly updateRegion: UpdaterRegion,
     private readonly getRegionsCloseToCoordinateDiffUserId: GetRegionsCloseToCoordinateDiffUserId,
-    private readonly getAllRegionsCloseToCoordinate: GetAllRegionsCloseToCoordinate
+    private readonly getAllRegionsCloseToCoordinate: GetAllRegionsCloseToCoordinate,
   ) {}
 
   create: HttpHandler = async (request) => {
@@ -74,6 +74,6 @@ export class RegionController {
       result = await this.getAllRegionsCloseToCoordinate.exec(coordinates, howMuchCloseInKM);
     }
 
-    return { statusCode: 200, body: { result, message: "Retornado com sucesso"}}
-  }
+    return { statusCode: 200, body: { result, message: 'Retornado com sucesso' } };
+  };
 }

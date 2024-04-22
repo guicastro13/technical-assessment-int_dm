@@ -1,5 +1,5 @@
-import dotenv from "dotenv"
-import path from "node:path"
+import dotenv from 'dotenv';
+import path from 'node:path';
 import { CreateUser } from './service/user/Create';
 import { UserController } from './api/controllers/UserController';
 import { MemoryUserRepository } from './database/test/mockRepositories/MemoryUserRepository';
@@ -18,20 +18,20 @@ import { UserRepositoryMongo } from './database/mongodb/repositoriesMongo/UserRe
 import { RegionRepositoryMongo } from './database/mongodb/repositoriesMongo/RegionRepositoryMongo';
 import { LoggerService } from './helpers/Logger';
 import { MongoDB } from './database/mongodb/mongodb';
-import { Server } from "./server";
-import { LogConverter } from "./helpers/convertToCsv";
-import { LogController } from "./api/controllers/LogController";
-import { GetRegionsCloseToCoordinateDiffUserId } from "./service/regions/GetRegionsCloseToCoordinateDiffUsarId";
-import { GeoLocationDistance } from "./service/GeoLocationDistance";
-import { GetAllRegionsCloseToCoordinate } from "./service/regions/GetAllRegionsCloseToCoordinate";
+import { Server } from './server';
+import { LogConverter } from './helpers/convertToCsv';
+import { LogController } from './api/controllers/LogController';
+import { GetRegionsCloseToCoordinateDiffUserId } from './service/regions/GetRegionsCloseToCoordinateDiffUsarId';
+import { GeoLocationDistance } from './service/GeoLocationDistance';
+import { GetAllRegionsCloseToCoordinate } from './service/regions/GetAllRegionsCloseToCoordinate';
 
-dotenv.config({ path: path.resolve(__dirname, "..", ".env.dev")});
+dotenv.config({ path: path.resolve(__dirname, '..', '.env.dev') });
 
-export const logger = new LoggerService()
+export const logger = new LoggerService();
 
 export const logConverter = new LogConverter(logger);
 
-export const mongo = new MongoDB(logger)
+export const mongo = new MongoDB(logger);
 //REPOSITORIES MEMORY
 export const usersRepositoryMemory = new MemoryUserRepository();
 export const regionsRepositoryMemory = new MemoryRegionRepository();
@@ -52,8 +52,14 @@ export const getRegionBy = new GetRegionById(regionRepositoryMongo);
 export const deleteRegion = new DeleteRegion(regionRepositoryMongo);
 export const updatedRegion = new UpdaterRegion(regionRepositoryMongo);
 export const geoLocationDistance = new GeoLocationDistance();
-export const getRegionsCloseToCoordinateDiffUserId = new GetRegionsCloseToCoordinateDiffUserId(regionRepositoryMongo ,geoLocationDistance);
-export const getAllRegionsCloseToCoordinate = new GetAllRegionsCloseToCoordinate(regionRepositoryMongo, geoLocationDistance)
+export const getRegionsCloseToCoordinateDiffUserId = new GetRegionsCloseToCoordinateDiffUserId(
+  regionRepositoryMongo,
+  geoLocationDistance,
+);
+export const getAllRegionsCloseToCoordinate = new GetAllRegionsCloseToCoordinate(
+  regionRepositoryMongo,
+  geoLocationDistance,
+);
 //CONTROLLER
 export const userController = new UserController(createUser, getAllUsers, getUserById, deleteUser, updaterUser);
 export const regionsController = new RegionController(
@@ -63,12 +69,11 @@ export const regionsController = new RegionController(
   deleteRegion,
   updatedRegion,
   getRegionsCloseToCoordinateDiffUserId,
-  getAllRegionsCloseToCoordinate
+  getAllRegionsCloseToCoordinate,
 );
 
 //LOGGER
-export const logController = new LogController(logConverter)
-
+export const logController = new LogController(logConverter);
 
 //SERVER
-export const server = new Server(logger)
+export const server = new Server(logger);

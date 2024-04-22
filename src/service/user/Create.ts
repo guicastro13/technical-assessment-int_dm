@@ -7,13 +7,13 @@ export class CreateUser {
 
   async exec(attributes: UserAttributes) {
     if (attributes.id) {
-      const hasUserWithId = await this.usersRepo.getUserById(attributes.id)
-      if(hasUserWithId) throw new Conflict("Já existe um úsuario com esse ID")
+      const hasUserWithId = await this.usersRepo.getUserById(attributes.id);
+      if (hasUserWithId) throw new Conflict('Já existe um úsuario com esse ID');
     }
 
     if (attributes.email) {
-      const hasUserWithId = await this.usersRepo.getUserByEmail(attributes.email)
-      if(hasUserWithId) throw new Conflict("Já existe um úsuario com esse EMAIL")
+      const hasUserWithId = await this.usersRepo.getUserByEmail(attributes.email);
+      if (hasUserWithId) throw new Conflict('Já existe um úsuario com esse EMAIL');
     }
 
     const user = new User(attributes);

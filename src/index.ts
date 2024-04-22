@@ -1,3 +1,3 @@
-import { server } from "./bootstrap";
+import { server } from './bootstrap';
 
-server.init()
+server.init();

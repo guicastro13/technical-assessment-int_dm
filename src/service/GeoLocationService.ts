@@ -9,7 +9,7 @@ export class HereApiGeoLocationService implements GeoLocationService {
 
   constructor(private axios: HttpClient) {}
 
-  async getAddressFromCoordinates(coordinates: Coordinates): Promise<Address | null>  {
+  async getAddressFromCoordinates(coordinates: Coordinates): Promise<Address | null> {
     const { latitude, longitude } = coordinates;
     const result = await this.axios.get<ResponseData>(
       `${this.baseUrlCordenates}?at=${latitude}%2C${longitude}&lang=en-US&apiKey=${this._apiKey}`,

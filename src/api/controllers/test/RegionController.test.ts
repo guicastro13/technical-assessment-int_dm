@@ -71,10 +71,21 @@ describe('Region Controller Teste', () => {
     const deleteRegion = new DeleteRegion(RegionsRepository);
     const updaterRegion = new UpdaterRegion(RegionsRepository);
     const geoLocationDistance = new GeoLocationDistance();
-    const getRegionsCloseToCoordinateDiffUserId = new GetRegionsCloseToCoordinateDiffUserId(RegionsRepository ,geoLocationDistance);
-    const getAllRegionsCloseToCoordinate = new GetAllRegionsCloseToCoordinate(RegionsRepository, geoLocationDistance)
+    const getRegionsCloseToCoordinateDiffUserId = new GetRegionsCloseToCoordinateDiffUserId(
+      RegionsRepository,
+      geoLocationDistance,
+    );
+    const getAllRegionsCloseToCoordinate = new GetAllRegionsCloseToCoordinate(RegionsRepository, geoLocationDistance);
     userController = new UserController(createUser, getAllUsers, getUserById, deleteUser, updaterUser);
-    regionController = new RegionController(createRegion, getAllRegions, getRegionById, deleteRegion, updaterRegion, getRegionsCloseToCoordinateDiffUserId, getAllRegionsCloseToCoordinate);
+    regionController = new RegionController(
+      createRegion,
+      getAllRegions,
+      getRegionById,
+      deleteRegion,
+      updaterRegion,
+      getRegionsCloseToCoordinateDiffUserId,
+      getAllRegionsCloseToCoordinate,
+    );
     const response = await userController.register(userCreator);
     const { user: responseUser } = response.body as { user: User };
     user = responseUser;

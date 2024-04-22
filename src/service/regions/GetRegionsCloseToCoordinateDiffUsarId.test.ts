@@ -65,7 +65,7 @@ describe('Get All Regions Close to Coordinate', () => {
     const userRepo = new MemoryUserRepository();
     const regionsRepo = new MemoryRegionRepository();
     const createUser = new CreateUser(userRepo);
-    const getUserById = new GetUserById(userRepo)
+    const getUserById = new GetUserById(userRepo);
     const createRegion = new CreateRegion(regionsRepo, getUserById);
     const user_1 = await createUser.exec(userValid);
     user_2 = await createUser.exec(otherUser);
@@ -109,7 +109,7 @@ describe('Get All Regions Close to Coordinate', () => {
     const result: Array<{ region: Region; distance: number }> | [] = await getRegionsCloseToCoordinateDiifUser.exec(
       nearCoordinate,
       user_2.id,
-      20
+      20,
     );
     expect(result?.length).toBeGreaterThan(0);
     result.forEach(({ region }) => {

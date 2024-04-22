@@ -17,7 +17,7 @@ describe('Geo Location Service', () => {
     longitude: -71.05788,
   });
   beforeAll(() => {
-    const logger = new LoggerService()
+    const logger = new LoggerService();
     const adapter = new AxiosAdapter(logger);
     geoLocation = new HereApiGeoLocationService(adapter);
   });

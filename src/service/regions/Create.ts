@@ -6,12 +6,12 @@ import { GetUserById } from '../user/GetUserById';
 export class CreateRegion {
   constructor(
     private regionsRepo: RegionsRepositoryI,
-    private getUserById: GetUserById
+    private getUserById: GetUserById,
   ) {}
 
   async exec(attributes: RegionAttributes) {
-    const user = await this.getUserById.exec(attributes.userId)
-    if(!user) throw new Conflict("Não foi encontrado nenhum USER o ID forncenido")
+    const user = await this.getUserById.exec(attributes.userId);
+    if (!user) throw new Conflict('Não foi encontrado nenhum USER o ID forncenido');
 
     const region = new Region(attributes);
     return this.regionsRepo.save(region);
