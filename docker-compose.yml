@@ -1,0 +1,42 @@
+version: '3.9'
+
+
+networks:
+  mynetwork:
+
+services: 
+  server-node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    restart: always
+    env_file:
+      - ./.env.docker
+    networks:
+      - mynetwork
+
+  mongodb:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - mynetwork
+
+  test-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - server-node
+    command: npm run test
+    networks:
+      - mynetwork
+  
+volumes:
+  mongo_data:
